@@ -1,281 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Self-Care</title>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Self-Care Picker</title>
 <style>
   body {
-    font-family: 'Quicksand', sans-serif;
-    margin: 0;
-    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(180deg, #edf2f7, #e2e8f0);
+    color: #1a202c;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    background: linear-gradient(135deg, #e8f0f7, #d6e4ef);
-    overflow: hidden;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
   }
 
-  #star-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    top: 0;
-    left: 0;
-    z-index: 0;
-  }
-
-  .star {
-    position: absolute;
-    border-radius: 50%;
-    background: white;
-    opacity: 0.8;
-    animation: floatStar linear infinite;
-  }
-
-  @keyframes floatStar {
-    0% { transform: translateY(0) scale(0.5); opacity: 0.7; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-1000px) scale(1); opacity: 0; }
-  }
-
-  #picker-container {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 25px;
-    padding: 40px 60px;
+  .container {
+    background: #f7fafc;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 24px;
     text-align: center;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    position: relative;
-    width: 380px;
-    z-index: 1;
-    backdrop-filter: blur(5px);
+    max-width: 340px;
+    width: 100%;
   }
 
-  h2 {
-    font-size: 28px;
-    color: #5a6b8c;
-    margin-bottom: 20px;
+  h1 {
+    font-size: 1.6em;
+    margin-bottom: 10px;
+    color: #2b6cb0;
   }
 
-  select {
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 1px solid #a0aec0;
-    font-size: 16px;
-    margin-bottom: 15px;
-    background-color: #f8fafc;
-    color: #4a5568;
+  .activity {
+    font-size: 1.2em;
+    margin: 20px 0;
+    min-height: 50px;
+    color: #2d3748;
   }
 
   button {
-    background: linear-gradient(135deg, #6ea8ff, #7289da);
+    background: #2b6cb0;
     color: white;
     border: none;
-    padding: 14px 28px;
-    font-size: 16px;
-    border-radius: 20px;
+    padding: 10px 18px;
+    margin: 8px;
+    border-radius: 12px;
+    font-size: 1em;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    position: relative;
-    z-index: 2;
+    transition: background 0.3s ease, transform 0.1s ease;
   }
 
   button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    background: #2c5282;
+    transform: scale(1.03);
   }
 
-  #activity {
-    margin-top: 25px;
-    font-size: 20px;
-    min-height: 50px;
-    color: #2d3748;
-    line-height: 1.4;
-    transition: all 0.4s ease;
-    font-weight: 500;
+  .bubbles {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    margin-top: 10px;
   }
 
-  #streak {
-    margin-top: 12px;
-    font-size: 16px;
-    color: #4a90e2;
-    font-weight: bold;
-  }
-
-  .confetti, .sparkle {
+  .bubble {
     position: absolute;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    background: rgba(66, 153, 225, 0.4);
     border-radius: 50%;
-    pointer-events: none;
-    animation: floatUp 2.5s linear forwards;
-    opacity: 0.8;
+    animation: rise 2.5s ease-out forwards;
   }
 
-  @keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-220px) rotate(360deg); opacity: 0; }
+  @keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-60px) scale(1.5); opacity: 0; }
   }
 
-  #glow-orb {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, rgba(176,205,255,0.6), rgba(91,121,178,0.1));
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    filter: blur(20px);
-    z-index: 1;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.9; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  .streak {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #4a5568;
   }
 </style>
 </head>
 <body>
-
-<div id="star-container"></div>
-
-<div id="picker-container">
-  <div id="glow-orb"></div>
-  <h2>Self-Care</h2>
-  <div>
-    <label for="category">Category: </label>
-    <select id="category">
-      <option value="all">All</option>
-      <option value="mind">Mind 🧘‍♀️</option>
-      <option value="body">Body 💪</option>
-      <option value="fun">Fun 🎨</option>
-      <option value="social">Social 💌</option>
-    </select>
+  <div class="container">
+    <h1>Self-Care</h1>
+    <div class="activity" id="activity">✨ Click below to get a self-care idea ✨</div>
+    <button id="newActivity">Pick One</button>
+    <button id="reset">Reset</button>
+    <div class="streak" id="streak">Daily streak: <span id="streakCount">0</span></div>
+    <div class="bubbles" id="bubbles"></div>
   </div>
-  <button id="pick-btn">Pick a Self-Care Activity</button>
-  <div id="activity"></div>
-  <div id="streak">Streak: 0</div>
-</div>
 
-<script>
-const activities = [
-  {name: "Take 3 deep breaths 🌬️", type: "mind"},
-  {name: "Drink a glass of water 💧", type: "body"},
-  {name: "Step outside for 2 minutes ☀️", type: "body"},
-  {name: "Listen to your favorite song 🎶", type: "fun"},
-  {name: "Write one thing you’re grateful for ✨", type: "mind"},
-  {name: "Stretch your arms and neck 🧘‍♂️", type: "body"},
-  {name: "Text a friend 💌", type: "social"},
-  {name: "Doodle or color for 5 minutes 🎨", type: "fun"},
-  {name: "Mindful body scan 🌸", type: "mind"},
-  {name: "Dance it out 💃", type: "fun"},
-  {name: "Make a cozy tea or coffee ☕", type: "body"},
-  {name: "Notice 3 things around you 🌳", type: "mind"},
-  {name: "Give yourself a compliment 💖", type: "mind"},
-  {name: "Light a candle or diffuser 🕯️", type: "body"},
-  {name: "Watch a comfort clip 🐶", type: "fun"},
-  {name: "Organize a tiny area of your space 🧺", type: "body"},
-  {name: "Write a kind note to yourself 💌", type: "mind"},
-  {name: "Sit with your pet for a moment 🐾", type: "fun"},
-  {name: "Do 10 gentle shoulder rolls 💪", type: "body"},
-  {name: "Send an encouraging text 💬", type: "social"},
-  {name: "Read one inspiring quote 📖", type: "mind"},
-  {name: "Close your eyes and breathe for 30 sec 🌤️", type: "mind"},
-  {name: "Wrap yourself in a blanket cocoon 🦋", type: "body"},
-  {name: "Add a fun song to your playlist 🎧", type: "fun"},
-  {name: "Watch the sky for a minute ☁️", type: "mind"},
-  {name: "Move your body however feels good 💃", type: "body"},
-  {name: "Smile at yourself in the mirror 😊", type: "mind"},
-  {name: "Tidy one small area of your desk 🗂️", type: "body"},
-  {name: "Send a meme to a friend 😂", type: "social"},
-  {name: "Journal a random thought 📝", type: "mind"}
-];
+  <script>
+    const activities = [
+      "Take 3 deep breaths 🌬️",
+      "Drink a glass of water 💧",
+      "Stretch your arms and neck 🧘",
+      "Step outside for fresh air ☀️",
+      "Listen to your favorite song 🎵",
+      "Write down one thing you’re grateful for ✨",
+      "Text a friend you miss 💌",
+      "Doodle for 5 minutes 🎨",
+      "Light a candle and take a pause 🕯️",
+      "Put your phone away for 10 minutes 📵",
+      "Do a mindful body scan 🌸",
+      "Hug yourself for 10 seconds 🤗",
+      "Pet an animal 🐾",
+      "Stand up and roll your shoulders 🌀",
+      "Write out your thoughts ✍️",
+      "Read a comforting quote 📖",
+      "Close your eyes and imagine your safe place 🌈",
+      "Put on comfy clothes 🩵",
+      "Stretch your hands and fingers 🤲",
+      "Make yourself a warm drink ☕"
+    ];
 
-// --- streak logic ---
-let streak = parseInt(localStorage.getItem('selfCareStreak')) || 0;
-let lastDate = localStorage.getItem('selfCareLastDate');
-const today = new Date().toDateString();
+    let remaining = [...activities];
+    let streak = 0;
+    const streakCount = document.getElementById("streakCount");
+    const activityDisplay = document.getElementById("activity");
+    const bubblesContainer = document.getElementById("bubbles");
 
-document.getElementById('streak').textContent = `Streak: ${streak}`;
-
-function updateStreak() {
-  if (lastDate === today) {
-    // same day, streak unchanged
-    return;
-  }
-
-  if (lastDate) {
-    const diffDays = Math.floor((new Date(today) - new Date(lastDate)) / (1000 * 60 * 60 * 24));
-    if (diffDays === 1) {
-      streak += 1; // next day, continue streak
-    } else {
-      streak = 1; // missed days, reset
+    function getRandomActivity() {
+      if (remaining.length === 0) {
+        remaining = [...activities];
+      }
+      const index = Math.floor(Math.random() * remaining.length);
+      const choice = remaining.splice(index, 1)[0];
+      return choice;
     }
-  } else {
-    streak = 1; // first time ever
-  }
 
-  localStorage.setItem('selfCareStreak', streak);
-  localStorage.setItem('selfCareLastDate', today);
-  document.getElementById('streak').textContent = `Streak: ${streak}`;
-}
+    function createBubbles() {
+      bubblesContainer.innerHTML = "";
+      for (let i = 0; i < 15; i++) {
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.style.left = Math.random() * 100 + "%";
+        bubble.style.width = bubble.style.height = (Math.random() * 10 + 6) + "px";
+        bubble.style.animationDelay = Math.random() * 0.5 + "s";
+        bubblesContainer.appendChild(bubble);
+      }
+    }
 
-// --- stars + confetti ---
-const starContainer = document.getElementById('star-container');
-for (let i=0; i<60; i++) {
-  const star = document.createElement('div');
-  star.classList.add('star');
-  star.style.width = `${Math.random()*3 + 1}px`;
-  star.style.height = star.style.width;
-  star.style.top = `${Math.random()*100}%`;
-  star.style.left = `${Math.random()*100}%`;
-  star.style.animationDuration = `${Math.random()*15 + 5}s`;
-  starContainer.appendChild(star);
-}
+    document.getElementById("newActivity").addEventListener("click", () => {
+      const newActivity = getRandomActivity();
+      activityDisplay.textContent = newActivity;
+      streak++;
+      streakCount.textContent = streak;
+      createBubbles();
+    });
 
-function createConfetti() {
-  const confetti = document.createElement('div');
-  confetti.classList.add('confetti');
-  confetti.style.width = `${Math.random()*12 + 8}px`;
-  confetti.style.height = confetti.style.width;
-  confetti.style.background = `hsl(${Math.random()*360}, 80%, 70%)`;
-  confetti.style.left = `${Math.random()*document.getElementById('picker-container').offsetWidth}px`;
-  document.getElementById('picker-container').appendChild(confetti);
-  setTimeout(() => confetti.remove(), 2500);
-}
-
-function createSparkle() {
-  const sparkle = document.createElement('div');
-  sparkle.classList.add('sparkle');
-  sparkle.style.width = `${Math.random()*6 + 4}px`;
-  sparkle.style.height = sparkle.style.width;
-  sparkle.style.background = `hsl(${Math.random()*360}, 90%, 80%)`;
-  sparkle.style.left = `${Math.random()*document.getElementById('picker-container').offsetWidth}px`;
-  document.getElementById('picker-container').appendChild(sparkle);
-  setTimeout(() => sparkle.remove(), 2500);
-}
-
-document.getElementById("pick-btn").addEventListener("click", () => {
-  const selectedCategory = document.getElementById("category").value;
-  const filtered = selectedCategory === "all" ? activities : activities.filter(a => a.type === selectedCategory);
-  const randomActivity = filtered[Math.floor(Math.random() * filtered.length)];
-
-  const activityDiv = document.getElementById("activity");
-  activityDiv.style.opacity = 0;
-  setTimeout(() => {
-    activityDiv.textContent = randomActivity.name;
-    activityDiv.style.opacity = 1;
-  }, 200);
-
-  for (let i=0; i<14; i++) createConfetti();
-  for (let i=0; i<10; i++) createSparkle();
-
-  updateStreak();
-});
-</script>
+    document.getElementById("reset").addEventListener("click", () => {
+      remaining = [...activities];
+      streak = 0;
+      streakCount.textContent = streak;
+      activityDisplay.textContent = "✨ Click below to get a self-care idea ✨";
+      bubblesContainer.innerHTML = "";
+    });
+  </script>
 </body>
 </html>
