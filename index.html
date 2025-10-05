@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Magical Self-Care Picker</title>
+<title>Self-Care</title>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 <style>
   body {
@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #f3e7e9, #e3f2fd);
+    background: linear-gradient(135deg, #e8f0f7, #d6e4ef);
     overflow: hidden;
   }
 
@@ -42,32 +42,35 @@
   }
 
   #picker-container {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 25px;
     padding: 40px 60px;
     text-align: center;
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     position: relative;
-    width: 360px;
+    width: 380px;
     z-index: 1;
+    backdrop-filter: blur(5px);
   }
 
   h2 {
     font-size: 28px;
-    color: #6c5ce7;
+    color: #5a6b8c;
     margin-bottom: 20px;
   }
 
   select {
     padding: 8px 12px;
     border-radius: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #a0aec0;
     font-size: 16px;
     margin-bottom: 15px;
+    background-color: #f8fafc;
+    color: #4a5568;
   }
 
   button {
-    background: linear-gradient(135deg, #fd79a8, #6c5ce7);
+    background: linear-gradient(135deg, #6ea8ff, #7289da);
     color: white;
     border: none;
     padding: 14px 28px;
@@ -89,7 +92,7 @@
     margin-top: 25px;
     font-size: 20px;
     min-height: 50px;
-    color: #2d3436;
+    color: #2d3748;
     line-height: 1.4;
     transition: all 0.4s ease;
     font-weight: 500;
@@ -98,7 +101,7 @@
   #streak {
     margin-top: 12px;
     font-size: 16px;
-    color: #fd79a8;
+    color: #4a90e2;
     font-weight: bold;
   }
 
@@ -112,14 +115,14 @@
 
   @keyframes floatUp {
     0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-200px) rotate(360deg); opacity: 0; }
+    100% { transform: translateY(-220px) rotate(360deg); opacity: 0; }
   }
 
   #glow-orb {
     position: absolute;
     width: 120px;
     height: 120px;
-    background: radial-gradient(circle, rgba(255,200,255,0.6), rgba(108,92,231,0.1));
+    background: radial-gradient(circle, rgba(176,205,255,0.6), rgba(91,121,178,0.1));
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -142,7 +145,7 @@
 
 <div id="picker-container">
   <div id="glow-orb"></div>
-  <h2>✨ Self-Care Picker ✨</h2>
+  <h2>Self-Care</h2>
   <div>
     <label for="category">Category: </label>
     <select id="category">
@@ -164,22 +167,38 @@ const activities = [
   {name: "Drink a glass of water 💧", type: "body"},
   {name: "Step outside for 2 minutes ☀️", type: "body"},
   {name: "Listen to your favorite song 🎶", type: "fun"},
-  {name: "Write 1 thing you’re grateful for ✨", type: "mind"},
-  {name: "Stretch arms and neck 🧘‍♂️", type: "body"},
+  {name: "Write one thing you’re grateful for ✨", type: "mind"},
+  {name: "Stretch your arms and neck 🧘‍♂️", type: "body"},
   {name: "Text a friend 💌", type: "social"},
-  {name: "Doodle for 5 minutes 🎨", type: "fun"},
-  {name: "Mindful scan of your body 🌸", type: "mind"},
-  {name: "Take a 2-minute dance break 💃", type: "fun"},
+  {name: "Doodle or color for 5 minutes 🎨", type: "fun"},
+  {name: "Mindful body scan 🌸", type: "mind"},
+  {name: "Dance it out 💃", type: "fun"},
   {name: "Make a cozy tea or coffee ☕", type: "body"},
-  {name: "Step outside and notice 3 things 🌳", type: "mind"},
-  {name: "Give yourself a compliment 💖", type: "mind"}
+  {name: "Notice 3 things around you 🌳", type: "mind"},
+  {name: "Give yourself a compliment 💖", type: "mind"},
+  {name: "Light a candle or diffuser 🕯️", type: "body"},
+  {name: "Watch a comfort clip 🐶", type: "fun"},
+  {name: "Organize a tiny area of your space 🧺", type: "body"},
+  {name: "Write a kind note to yourself 💌", type: "mind"},
+  {name: "Sit with your pet for a moment 🐾", type: "fun"},
+  {name: "Do 10 gentle shoulder rolls 💪", type: "body"},
+  {name: "Send an encouraging text 💬", type: "social"},
+  {name: "Read one inspiring quote 📖", type: "mind"},
+  {name: "Close your eyes and breathe for 30 sec 🌤️", type: "mind"},
+  {name: "Wrap yourself in a blanket cocoon 🦋", type: "body"},
+  {name: "Add a fun song to your playlist 🎧", type: "fun"},
+  {name: "Watch the sky for a minute ☁️", type: "mind"},
+  {name: "Move your body however feels good 💃", type: "body"},
+  {name: "Smile at yourself in the mirror 😊", type: "mind"},
+  {name: "Tidy one small area of your desk 🗂️", type: "body"},
+  {name: "Send a meme to a friend 😂", type: "social"},
+  {name: "Journal a random thought 📝", type: "mind"}
 ];
 
-// Load streak from localStorage
 let streak = parseInt(localStorage.getItem('selfCareStreak')) || 0;
 document.getElementById('streak').textContent = `Streak: ${streak}`;
 
-// Star background generation
+// Generate stars
 const starContainer = document.getElementById('star-container');
 for (let i=0; i<60; i++) {
   const star = document.createElement('div');
@@ -192,14 +211,14 @@ for (let i=0; i<60; i++) {
   starContainer.appendChild(star);
 }
 
-// Confetti and sparkle functions
+// Confetti and sparkles
 function createConfetti() {
   const confetti = document.createElement('div');
   confetti.classList.add('confetti');
   confetti.style.width = `${Math.random()*12 + 8}px`;
   confetti.style.height = confetti.style.width;
-  confetti.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
-  confetti.style.left = `${Math.random()*320}px`;
+  confetti.style.background = `hsl(${Math.random()*360}, 80%, 70%)`;
+  confetti.style.left = `${Math.random()*document.getElementById('picker-container').offsetWidth}px`;
   document.getElementById('picker-container').appendChild(confetti);
   setTimeout(() => confetti.remove(), 2500);
 }
@@ -209,13 +228,12 @@ function createSparkle() {
   sparkle.classList.add('sparkle');
   sparkle.style.width = `${Math.random()*6 + 4}px`;
   sparkle.style.height = sparkle.style.width;
-  sparkle.style.background = `hsl(${Math.random()*360}, 90%, 70%)`;
-  sparkle.style.left = `${Math.random()*320}px`;
+  sparkle.style.background = `hsl(${Math.random()*360}, 90%, 80%)`;
+  sparkle.style.left = `${Math.random()*document.getElementById('picker-container').offsetWidth}px`;
   document.getElementById('picker-container').appendChild(sparkle);
   setTimeout(() => sparkle.remove(), 2500);
 }
 
-// Pick activity
 document.getElementById("pick-btn").addEventListener("click", () => {
   const selectedCategory = document.getElementById("category").value;
   const filtered = selectedCategory === "all" ? activities : activities.filter(a => a.type === selectedCategory);
@@ -228,16 +246,13 @@ document.getElementById("pick-btn").addEventListener("click", () => {
     activityDiv.style.opacity = 1;
   }, 200);
 
-  // Confetti and sparkles
-  for (let i=0; i<12; i++) createConfetti();
-  for (let i=0; i<8; i++) createSparkle();
+  for (let i=0; i<14; i++) createConfetti();
+  for (let i=0; i<10; i++) createSparkle();
 
-  // Update streak
   streak += 1;
   document.getElementById('streak').textContent = `Streak: ${streak}`;
   localStorage.setItem('selfCareStreak', streak);
 });
 </script>
-
 </body>
 </html>
