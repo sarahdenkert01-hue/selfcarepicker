@@ -195,10 +195,36 @@ const activities = [
   {name: "Journal a random thought 📝", type: "mind"}
 ];
 
+// --- streak logic ---
 let streak = parseInt(localStorage.getItem('selfCareStreak')) || 0;
+let lastDate = localStorage.getItem('selfCareLastDate');
+const today = new Date().toDateString();
+
 document.getElementById('streak').textContent = `Streak: ${streak}`;
 
-// Generate stars
+function updateStreak() {
+  if (lastDate === today) {
+    // same day, streak unchanged
+    return;
+  }
+
+  if (lastDate) {
+    const diffDays = Math.floor((new Date(today) - new Date(lastDate)) / (1000 * 60 * 60 * 24));
+    if (diffDays === 1) {
+      streak += 1; // next day, continue streak
+    } else {
+      streak = 1; // missed days, reset
+    }
+  } else {
+    streak = 1; // first time ever
+  }
+
+  localStorage.setItem('selfCareStreak', streak);
+  localStorage.setItem('selfCareLastDate', today);
+  document.getElementById('streak').textContent = `Streak: ${streak}`;
+}
+
+// --- stars + confetti ---
 const starContainer = document.getElementById('star-container');
 for (let i=0; i<60; i++) {
   const star = document.createElement('div');
@@ -211,7 +237,6 @@ for (let i=0; i<60; i++) {
   starContainer.appendChild(star);
 }
 
-// Confetti and sparkles
 function createConfetti() {
   const confetti = document.createElement('div');
   confetti.classList.add('confetti');
@@ -249,9 +274,7 @@ document.getElementById("pick-btn").addEventListener("click", () => {
   for (let i=0; i<14; i++) createConfetti();
   for (let i=0; i<10; i++) createSparkle();
 
-  streak += 1;
-  document.getElementById('streak').textContent = `Streak: ${streak}`;
-  localStorage.setItem('selfCareStreak', streak);
+  updateStreak();
 });
 </script>
 </body>
